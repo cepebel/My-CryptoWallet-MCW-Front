@@ -1,0 +1,28 @@
+<mat-table [dataSource]="coins" class="mat-elevation-z8">
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef class="table-title"> Nombre</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="symbol">
+        <mat-header-cell *matHeaderCellDef class="table-title"> Symbol</mat-header-cell>
+        <mat-cell *matCellDef="let element"><img [src]="element.symbol" class="img"></mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="value">
+        <mat-header-cell *matHeaderCellDef class="table-title"> Valor</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.value}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="amount">
+        <mat-header-cell *matHeaderCellDef class="table-title"> Cantidad total</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.amount}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <button mat-raised-button class="button" (click)="openDialog(1, element)">Comprar</button>
+            <button mat-raised-button class="button" (click)="openDialog(-1, element)">Vender</button>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef='displayedColumns'></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

@@ -1,0 +1,46 @@
+<div class="container">
+    <h3 *ngIf="data.operation==1" class="header-title">REALIZAR COMPRA</h3>
+    <h3 *ngIf="data.operation==-1" class="header-title">VENDER CRYPTOMONEDAS</h3>
+    <div class="row">
+        <div class="title"><p>Moneda:</p></div>
+        <p>{{data.coin.name}}</p>
+    </div>
+    <div class="row">
+        <div class="title">
+            <p>Precio:</p>
+        </div>
+        <p>{{data.coin.value}} €/ud</p>
+    </div>
+    <div class="row">
+        <mat-form-field appearance="fill" floatLabel="always">
+            <mat-label>Cantidad</mat-label>
+            <input matInput type="number" class="example-right-align" placeholder="0" [formControl]="amount">
+            <span matPrefix>€&nbsp;</span>
+            <span matSuffix>.00</span>
+          </mat-form-field>
+    </div>
+    <div class="row">
+        <div class="title">
+            <p>Total:</p>
+        </div>
+        <p>{{amount.value*coinValue}} €</p>
+    </div>
+    <div class="row">
+        <div class="title">
+            <p>Mi saldo actual:</p>
+        </div>
+        <p>{{userBudget}} €</p>
+    </div>
+    <div class="row">
+        <div class="title">
+            <p>Saldo final:</p>
+        </div>
+        <p *ngIf="data.operation==1">{{userBudget-amount.value*coinValue}} €</p>
+        <p *ngIf="data.operation==-1">{{userBudget+amount.value*coinValue}} €</p>
+    </div>
+    <div class="row-button">
+        <button mat-raised-button (click)="onBack()">Atrás</button>
+        <button mat-raised-button color="warn" *ngIf="data.operation==1" (click)="onBuy()">Comprar</button>
+        <button mat-raised-button color="warn" *ngIf="data.operation==-1"(click)="onSell()">Vender</button>
+    </div>
+</div>

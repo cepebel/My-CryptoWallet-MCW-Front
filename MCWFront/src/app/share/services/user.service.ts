@@ -14,7 +14,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   updateUserBudget(userId: string, newBudget: number):Observable<number>{
-    console.log('Estoy cambiando el budget')
+    console.log('Estoy cambiando el budget a '+newBudget)
     return this.http.post<number>(USER_API+'update/budget',{userId: userId, budget: newBudget})
   }
  

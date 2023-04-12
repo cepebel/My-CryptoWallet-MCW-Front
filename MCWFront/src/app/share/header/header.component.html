@@ -1,18 +1,15 @@
 <div [ngClass]="isLogged? 'header-black' : 'header'">
     <div class="right">
-        <div class="logo">
-            <img src="../../../assets/imgs/whiteWallet.png"  class="img-wallet" (click)="toWelcome()">
-        </div>
         <div>
             <img src="../../../assets/imgs/letterLogo.png" class="img-logo" (click)="toWelcome()">
         </div>
         <div class="left">
-            <div *ngIf="isLogged">
-                Saldo: {{sessionUser.budget}} €
-            </div>
             <div>
-                <button mat-button *ngIf="isLogged" (click)="logOut()" class="button"> Cerrar Sesión</button>
+                <button mat-button *ngIf="isLogged" (click)="logOut()" class="button-close"> Cerrar Sesión</button>
                 <button mat-button *ngIf="!isLogged" (click)="logIn()" class="button"> Iniciar Sesión</button>
+            </div>
+            <div *ngIf="isLogged" class="logo">
+                <img src="../../../assets/imgs/whiteWallet.png"  class="img-wallet" (click)="addBudget()">
             </div>
         </div>
     </div>

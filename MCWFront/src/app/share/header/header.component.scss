@@ -37,3 +37,22 @@
   position: relative;
   margin-top: 50px;
 }
+.button-close{
+  position: relative;
+  margin-top: 20px;
+}
+.row{
+  display: flex;
+  flex-direction: row;
+}
+
+@media (max-width: 800px) {
+ 
+  .img-logo{
+    width: 200px;
+  }
+  .img-wallet{
+    width: 60px;
+    height: 60px
+  }
+}

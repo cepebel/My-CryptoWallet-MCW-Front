@@ -1,7 +1,7 @@
 import { CoinService } from './../../../share/services/coin.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { Icoin } from 'src/app/share/models/coin.model';
+import { Icoin, Ijoin } from 'src/app/share/models/coin.model';
 import { Iuser } from 'src/app/share/models/user.model';
 import { FormControl } from '@angular/forms';
 import { UserService } from 'src/app/share/services/user.service';
@@ -20,10 +20,11 @@ export interface Idata{
   styleUrls: ['./action-messg.component.scss']
 })
 export class ActionMessgComponent implements OnInit {
-  amount = new FormControl({value: 0})
+  amount = new FormControl()
   coinValue: number = 0
   userBudget: number =  0
   update: boolean = false
+  selectedJoin: Ijoin = {}
 
   
   constructor(
@@ -38,6 +39,7 @@ export class ActionMessgComponent implements OnInit {
 
   ngOnInit(): void {
     this.amount.setValue(0)
+    this.getMyAmount(this.data.user.userId || '', this.data.coin.coinId || '')
     if(this.data.coin.value){
       this.coinValue= this.data.coin.value
     }
@@ -52,23 +54,23 @@ export class ActionMessgComponent implements OnInit {
 
   onBuy(){
     if(this.data.user.userId && this.data.coin.coinId){
-      /*this.userService.updateUserBudget(this.data.user.userId, this.userBudget-this.amount.value).subscribe(res=>{
-        console.log(res)
-      })*/
-      this.coinService.buyCoin(this.data.user.userId, this.data.coin.coinId, +this.amount.value).subscribe(res=>{
-        console.log(res)
-        if(res=='impossible'){
-          this.dialog.open(ActionWarningComponent, {data:'impossible'})
-        }else if(res=='negative'){
-          this.dialog.open(ActionWarningComponent, {data:'negative'})
-        }else{
-            let newBudget: number = Number(this.userBudget)-Number(this.amount.value*this.coinValue)
-            this.update = true
-            console.log('Ignoro el if-else')
-            if(newBudget<0){
-              this.dialog.open(ActionWarningComponent, {data:'redNumber'})
-            }
-            else{
+      if(this.amount.value<0){
+        this.dialog.open(ActionWarningComponent, {data: 'smarty'})
+      }
+      let newBudget: number = Number(this.userBudget)-Number(Math.abs(this.amount.value)*this.coinValue)
+      if(newBudget<0){
+        this.dialog.open(ActionWarningComponent, {data:'redNumber'})
+      }else{
+        this.coinService.buyCoin(this.data.user.userId, this.data.coin.coinId, +this.amount.value).subscribe(res=>{
+          console.log(res)
+          if(res=='impossible'){
+            this.dialog.open(ActionWarningComponent, {data:'impossible'})
+          }else if(res=='negative'){
+            this.dialog.open(ActionWarningComponent, {data:'negative'})
+          }else{
+              this.update = true
+              console.log('Ignoro el if-else')
+
               this.userService.updateUserBudget(this.data.user.userId || '', Number(this.userBudget)-Number(this.amount.value*this.coinValue)).subscribe(res=>{
                 console.log(res)
                 this.data.user.budget = this.userBudget
@@ -76,12 +78,12 @@ export class ActionMessgComponent implements OnInit {
                 this.dialogRef.close({coins: this.coinService.getAllCoins(), newBudget: Number(this.userBudget)-Number(this.amount.value*this.coinValue), update: this.update})
               })
             }
-        }
-      })
+          
+        })
+      } 
       
-    }
- 
-    
+      
+    }   
   }
   onSell(){
     if(this.data.user.userId && this.data.coin.coinId){
@@ -92,14 +94,14 @@ export class ActionMessgComponent implements OnInit {
         }else if(res=='negative'){
           this.dialog.open(ActionWarningComponent, {data:'negative'})
         }else{
-            let newBudget: number = Number(this.userBudget)-Number(this.amount.value*this.coinValue)
+            let newBudget: number = Number(this.userBudget)-Number(Math.abs(this.amount.value)*this.coinValue)
             this.update = true
             console.log('Ignoro el if-else')
             if(newBudget<0){
               this.dialog.open(ActionWarningComponent, {data:'redNumber'})
             }
             else{
-              this.userService.updateUserBudget(this.data.user.userId || '', Number(this.userBudget)-Number(this.amount.value*this.coinValue)).subscribe(res=>{
+              this.userService.updateUserBudget(this.data.user.userId || '', Number(this.userBudget)+Number(this.amount.value*this.coinValue)).subscribe(res=>{
                 console.log(res)
                 this.data.user.budget = this.userBudget
                 this.authService.saveSession(this.data.user)
@@ -110,5 +112,9 @@ export class ActionMessgComponent implements OnInit {
       })
     }
   }
-
+  getMyAmount(userId: string, coinId: string){
+    this.coinService.getJoinById(userId, coinId).subscribe(res=>{
+      this.selectedJoin = res
+    })
+  }
 }

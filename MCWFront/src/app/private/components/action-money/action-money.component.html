@@ -1,0 +1,26 @@
+<div class="container">
+    <h3 class="header-title">AÑADIR SALDO</h3>
+
+    <div class="row">
+        <mat-form-field appearance="fill" floatLabel="always">
+            <mat-label>Añadir (€)</mat-label>
+            <input matInput type="number" class="example-right-align" placeholder="0.00" [formControl]="amount">
+        </mat-form-field>
+    </div>
+    
+    <div class="row">
+        <div class="title">
+            <p>Saldo actual:</p>
+        </div>
+        <p>{{userSession.budget|number: '1.1-2'}} €</p>
+    </div>
+    <div class="row">
+        <div class="title">
+            <p>Saldo final:</p>
+        </div>
+        <p>{{(+budget)+(+amount.value) |number: '1.1-2'}} €</p>
+    </div>
+    <div mat-dialog-actions align="end">
+        <button mat-raised-button (click)="addMoney((+budget)+(+amount.value))">Añadir</button>
+    </div>
+</div>

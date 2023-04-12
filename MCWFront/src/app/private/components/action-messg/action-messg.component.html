@@ -9,35 +9,56 @@
         <div class="title">
             <p>Precio:</p>
         </div>
-        <p>{{data.coin.value}} €/ud</p>
+        <p>{{data.coin.value | number: '1.1-2'}} €/ud</p>
     </div>
     <div class="row">
         <mat-form-field appearance="fill" floatLabel="always">
-            <mat-label>Cantidad</mat-label>
-            <input matInput type="number" class="example-right-align" placeholder="0.000" [formControl]="amount">
-            <span matPrefix>€&nbsp;</span>
-          </mat-form-field>
+            <mat-label>Unidades</mat-label>
+            <input matInput type="number" class="example-right-align" placeholder="0.00" [formControl]="amount">
+        </mat-form-field>
     </div>
     <div class="row">
         <div class="title">
-            <p>Total:</p>
+            <p>Total en euros:</p>
         </div>
-        <p>{{amount.value*coinValue | number: '1.1-3'}} €</p>
+        <p>{{amount.value*coinValue | number: '1.1-2'}} €</p>
     </div>
     <div class="row">
-        <div class="title">
-            <p>Mi saldo actual:</p>
+        <div class="row">
+            <div>
+                <div class="row">
+                    <div class="title">
+                        <p>Mi saldo actual:</p>
+                    </div>
+                    <p>{{userBudget | number: '1.1-2'}} €</p>
+                </div>
+                <div class="row">
+                    <div class="title">
+                        <p>Saldo final:</p>
+                    </div>
+                    <p *ngIf="data.operation==1">{{(userBudget)|toNumber:amount.value*coinValue*(-1.0) | number: '1.1-2'}} €</p>
+                    <p *ngIf="data.operation==-1">{{userBudget*(1.0)|toNumber: amount.value*coinValue*(1.0)| number: '1.1-2'}} €</p>
+                </div>
+            </div>
+            <div *ngIf="data.operation==-1">
+                <div  class="row">
+                    <div class="title">
+                        <p>Mis monedas actuales:</p>
+                    </div>
+                    <p>{{selectedJoin.amount | number: '1.1-3'}} €</p>
+                </div>
+                <div  class="row">
+                    <div class="title">
+                        <p>Mis monedas finales:</p>
+                    </div>
+                    <p>{{selectedJoin.amount|toNumber: amount.value*(-1)| number: '1.1-2'}} €</p>
+                </div>
+
+            </div>
         </div>
-        <p>{{userBudget | number: '1.1-3'}} €</p>
     </div>
-    <div class="row">
-        <div class="title">
-            <p>Saldo final:</p>
-        </div>
-        <p *ngIf="data.operation==1">{{(userBudget)|toNumber:amount.value*coinValue*(-1.0) | number: '1.1-3'}} €</p>
-        <p *ngIf="data.operation==-1">{{userBudget*(1.0)|toNumber: amount.value*coinValue*(1.0)| number: '1.1-3'}} €</p>
-    </div>
-    <div class="row-button">
+   
+    <div mat-dialog-actions align="left">
         <button mat-raised-button (click)="onBack()">Atrás</button>
         <button mat-raised-button color="warn" *ngIf="data.operation==1" (click)="onBuy()">Comprar</button>
         <button mat-raised-button color="warn" *ngIf="data.operation==-1"(click)="onSell()">Vender</button>

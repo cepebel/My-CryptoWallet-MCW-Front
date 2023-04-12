@@ -1,1 +1,14 @@
-<p>action-warning works!</p>
+<div [ngSwitch]="data">
+    <div *ngSwitchCase="'negative'">
+        No puedes vender monedas que no tienes
+    </div>
+    <div *ngSwitchCase="'impossible'">
+        No puedes comprar más monedas de las que hay
+    </div>
+    <div *ngSwitchCase="'smarty'">
+        No te hagas el listo
+    </div>
+    <div *ngSwitchCase="'redNumber'">
+        No tienes tanto dinero
+    </div>
+</div>

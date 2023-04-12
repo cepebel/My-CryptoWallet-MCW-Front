@@ -4,30 +4,29 @@
         <div class="form">
             <h3 class="header-title">MI CUENTA</h3>
             <div class="row">
-                <div class="title"><p>Nombre de usuario:</p></div>
-                <p>{{sessionUser.username}}</p>
-            </div>
-            <div *ngIf="sessionUser.name!=undefined"class="row">
-                <div class="title"><p>Nombre:</p></div>
-                <p>{{sessionUser.name | uppercase}}</p>
-            </div>
-            <div *ngIf="sessionUser.surname!=undefined" class="row">
-                <div class="title"><p>Apellidos:</p></div>
-                <p>{{sessionUser.surname | uppercase}}</p>
-            </div>
-            <div class="row">
-                <div class="title"><p>Correo:</p></div>
-                <p>{{sessionUser.email}}</p>
-            </div>
-            <div class="row">
-                <div class="title">Mis monedas:</div>
-                <div *ngFor="let coin of myCoins">
-                    <div>{{coin.name}}</div>
-                    <div>{{coin.value}}</div>
+                <div>
+                    <div class="row-information">
+                        <div class="title"><p>Nombre de usuario:</p></div>
+                        <p>{{sessionUser.username}}</p>
+                    </div>
+                    <div class="row-information">
+                        <div class="title"><p>Correo:</p></div>
+                        <p>{{sessionUser.email}}</p>
+                    </div>
+                    <div class="column-information">
+                        <div class="title">Mis monedas:</div>
+                        <div class="row-img">
+                            <div *ngFor="let coin of myCoins">
+                                <img [src]="coin.symbol" class="img">
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
             </div>
-            
-            
+        </div>
+        <div class="button">
+            <button mat-raised-button (click)="addMoney()">Añadir Saldo</button>
         </div>
     </div>
 </div>

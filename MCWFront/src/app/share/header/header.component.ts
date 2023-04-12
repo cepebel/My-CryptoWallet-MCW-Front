@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
 
   toWelcome(){
     if(this.isLogged){
-      this.router.navigate(['private/account'])
+      this.router.navigate(['private/dashboard'])
     }
     else{
     this.router.navigate(['/public/welcome'])
@@ -37,6 +37,9 @@ export class HeaderComponent implements OnInit {
     this.authService.logout()
     this.isLogged = false
     this.router.navigate(['/public/welcome'])
+  }
+  addBudget(){
+    this.router.navigate(['/private/account'])
   }
 
 }

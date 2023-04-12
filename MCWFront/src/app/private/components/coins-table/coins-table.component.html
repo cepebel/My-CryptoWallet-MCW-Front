@@ -9,15 +9,15 @@
         <mat-cell *matCellDef="let element"><img [src]="element.symbol" class="img"></mat-cell>
     </ng-container>
     <ng-container matColumnDef="value">
-        <mat-header-cell *matHeaderCellDef class="table-title"> Valor</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef class="table-title"> Valor (€/ud)</mat-header-cell>
         <mat-cell *matCellDef="let element">{{element.value}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="amount">
-        <mat-header-cell *matHeaderCellDef class="table-title"> Cantidad total</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef class="table-title"> Cantidad total (ud)</mat-header-cell>
         <mat-cell *matCellDef="let element">{{element.amount}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef class="table-title">{{sessionUser.budget}} </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef class="table-title">Mi saldo: {{sessionUser.budget | number: '1.1-2'}} €</mat-header-cell>
         <mat-cell *matCellDef="let element">
             <button mat-raised-button class="button-buy" (click)="openDialog(1, element)">Comprar</button>
             <button mat-raised-button *ngIf="!showSellButton(element.coinId)" class="button" (click)="openDialog(-1, element)">Vender</button>

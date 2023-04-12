@@ -13,13 +13,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { UserAccountComponent } from './components/user-account/user-account.component';
 import { ActionWarningComponent } from './components/action-warning/action-warning.component';
+import { ActionMoneyComponent } from './components/action-money/action-money.component';
 @NgModule({
   declarations: [
     DashboardComponent,
     CoinsTableComponent,
     ActionMessgComponent,
     UserAccountComponent,
-    ActionWarningComponent
+    ActionWarningComponent,
+    ActionMoneyComponent
   ],
   imports: [
     CommonModule,

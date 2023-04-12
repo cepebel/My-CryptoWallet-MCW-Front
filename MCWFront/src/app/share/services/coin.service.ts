@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Icoin } from '../models/coin.model';
+import { Icoin, Ijoin } from '../models/coin.model';
 
 const COIN_API = 'http://localhost:3142/api/coins/';
 const USER_API = 'http://localhost:1342/api/users/';
@@ -24,4 +24,8 @@ export class CoinService {
     console.log('A por mis monedas!')
     return this.http.get<Icoin[]>(COIN_API+'get/coins/user/'+userId)
   }
+  getJoinById(userId: string, coinId: string): Observable<Ijoin>{
+    return this.http.get<Ijoin>(COIN_API+'get/join/'+userId+coinId)
+  }
+  
 }

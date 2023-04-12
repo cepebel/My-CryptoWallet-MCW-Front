@@ -18,7 +18,6 @@ export class CoinService {
     return this.http.get<Icoin[]>(COIN_API+'all') 
   }
   buyCoin(userId: string, coinId: string, amount: number):Observable<string>{
-    
     return this.http.post<string>(COIN_API+'update',{userId:userId, coinId:coinId, amount:amount})
   }
   getUserCoins(userId: string):Observable<Icoin[]>{

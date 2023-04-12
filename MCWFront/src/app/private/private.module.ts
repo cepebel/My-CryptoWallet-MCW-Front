@@ -12,12 +12,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { UserAccountComponent } from './components/user-account/user-account.component';
+import { ActionWarningComponent } from './components/action-warning/action-warning.component';
 @NgModule({
   declarations: [
     DashboardComponent,
     CoinsTableComponent,
     ActionMessgComponent,
-    UserAccountComponent
+    UserAccountComponent,
+    ActionWarningComponent
   ],
   imports: [
     CommonModule,

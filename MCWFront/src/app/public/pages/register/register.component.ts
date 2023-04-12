@@ -54,5 +54,15 @@ export class RegisterComponent implements OnInit {
     )
 
   }
+  ngOnDestroy():void{
+    document.body.className = "";
+  }
+
+  toLogIn(){
+    this.router.navigate(['/public/login'])
+  }
+  toWelcome(){
+    this.router.navigate(['/public/welcome'])
+  }
 
 }

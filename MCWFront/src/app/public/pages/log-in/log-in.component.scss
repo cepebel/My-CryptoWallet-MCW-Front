@@ -16,11 +16,22 @@
     background-color: white;
     padding: 30px;
     border-radius: 25px;
+    margin-bottom: 60px;
+    width: 30%;
  
 }
 .form{
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-self: center;
+    width: 100%;
+}
+.header-title{
+    color:red;
+    font-weight: 300;
+}
+.bottom-button{
+    margin-top: 20px;
 }

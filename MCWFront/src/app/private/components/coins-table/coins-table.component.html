@@ -1,3 +1,4 @@
+<div class="scroll">
 <mat-table [dataSource]="coins" class="mat-elevation-z8">
     <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef class="table-title"> Nombre</mat-header-cell>
@@ -18,11 +19,12 @@
     <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef> </mat-header-cell>
         <mat-cell *matCellDef="let element">
-            <button mat-raised-button class="button" (click)="openDialog(1, element)">Comprar</button>
-            <button mat-raised-button class="button" (click)="openDialog(-1, element)">Vender</button>
+            <button mat-raised-button class="button-buy" (click)="openDialog(1, element)">Comprar</button>
+            <button mat-raised-button *ngIf="!showSellButton(element.coinId)" class="button" (click)="openDialog(-1, element)">Vender</button>
         </mat-cell>
     </ng-container>
 
-    <mat-header-row *matHeaderRowDef='displayedColumns'></mat-header-row>
+    <mat-header-row *matHeaderRowDef='displayedColumns; sticky: true'></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 </mat-table>
+</div>

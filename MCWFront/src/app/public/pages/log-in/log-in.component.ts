@@ -45,4 +45,11 @@ export class LogInComponent implements OnInit {
     document.body.className = "";
   }
 
+  toRegister(){
+    this.router.navigate(['/public/register'])
+  }
+  toWelcome(){
+    this.router.navigate(['/public/welcome'])
+  }
+
 }

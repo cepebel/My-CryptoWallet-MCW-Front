@@ -2,7 +2,7 @@
 <div class="center-flex">
     <div class="center-square">
         <div class="form">
-            <h1>Introduce tus datos:</h1>
+            <h3 class="header-title">INTRODUCE TUS DATOS:</h3>
             <form #registerForm = "ngForm" (ngSubmit)="register(registerForm)" >
                 <mat-form-field appearance="outline" class="form">
                     <mat-label>Nombre de Usuario:</mat-label>
@@ -26,7 +26,11 @@
                 </mat-form-field>
                 <button mat-raised-button class="button" color="warn">Registrarme</button>
             </form>
+            <div class="bottom-button">
+                <button mat-button (click)="toWelcome()">Atrás</button>
+                <button mat-button (click)="toLogIn()">Iniciar Sesión</button>
+            </div>
         </div>
     </div>
 </div>
-
+<app-footer></app-footer>

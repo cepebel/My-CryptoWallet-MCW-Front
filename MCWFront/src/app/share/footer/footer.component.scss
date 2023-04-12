@@ -1,0 +1,24 @@
+
+.footer {
+    padding: 30px;
+    text-align: center;
+    background: #FD0000;
+    color: white;
+    height: 30px;
+  }
+  .footer-black {
+    padding: 30px;
+    text-align: center;
+    background: #000000;
+    color: white;
+    height: 30px;
+  }
+
+  .img-logo{
+    width:200px;
+  }
+  .right{
+    display: flex;
+    flex-direction: row-reverse;
+    position: relative;
+  }

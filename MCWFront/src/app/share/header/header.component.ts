@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { Iuser } from '../models/user.model';
 
 @Component({
   selector: 'app-header',
@@ -9,6 +10,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   isLogged: boolean = false
+  sessionUser: Iuser = {}
 
   constructor(
     private router: Router,
@@ -16,10 +18,16 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLogged = this.authService.isLogged()
+    this.sessionUser = this.authService.getUser()
   }
 
   toWelcome(){
+    if(this.isLogged){
+      this.router.navigate(['private/account'])
+    }
+    else{
     this.router.navigate(['/public/welcome'])
+    }
   }
   logIn(){
     this.router.navigate(['/public/login'])

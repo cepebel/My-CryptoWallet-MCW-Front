@@ -11,11 +11,13 @@ import { ActionMessgComponent } from './components/action-messg/action-messg.com
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { UserAccountComponent } from './components/user-account/user-account.component';
 @NgModule({
   declarations: [
     DashboardComponent,
     CoinsTableComponent,
-    ActionMessgComponent
+    ActionMessgComponent,
+    UserAccountComponent
   ],
   imports: [
     CommonModule,

@@ -2,7 +2,7 @@
 <div class="center-flex">
     <div class="center-square">
         <div class="form">
-            <h1>Iniciar Sesión</h1>
+            <h3 class="header-title">INICIAR SESIÓN</h3>
             <form #logInForm = "ngForm" (ngSubmit)="logIn(logInForm)" >
                 <mat-form-field appearance="outline" class="form">
                     <mat-label>Email:</mat-label>
@@ -14,8 +14,11 @@
                 </mat-form-field>
                 <button mat-raised-button class="button" color="warn">Iniciar Sesion</button>
             </form>
+            <div class="bottom-button">
+                <button mat-button (click)="toWelcome()">Atrás</button>
+                <button mat-button (click)="toRegister()">Registarme</button>
+            </div>
+            
         </div>
     </div>
 </div>
-
-

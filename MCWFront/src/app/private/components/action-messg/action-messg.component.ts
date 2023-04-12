@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Icoin } from 'src/app/share/models/coin.model';
 import { Iuser } from 'src/app/share/models/user.model';
 import { FormControl } from '@angular/forms';
+import { UserService } from 'src/app/share/services/user.service';
 
 export interface Idata{
   operation: number
@@ -20,10 +21,12 @@ export class ActionMessgComponent implements OnInit {
   amount = new FormControl({value: 0})
   coinValue: number = 0
   userBudget: number =  0
+  
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Idata,
     public dialogRef: MatDialogRef<ActionMessgComponent>,
     private coinService: CoinService,
+    private userService: UserService
     ) { }
   
 
@@ -38,24 +41,27 @@ export class ActionMessgComponent implements OnInit {
   }
 
   onBack(){
-    this.dialogRef.close(0)
+    this.dialogRef.close(this.coinService.getAllCoins())
   }
 
   onBuy(){
     if(this.data.user.userId && this.data.coin.coinId){
-      this.coinService.buyCoin(this.data.user.userId, this.data.coin.coinId, this.amount.value).subscribe(res=>
-        console.log(res))
+      /*this.userService.updateUserBudget(this.data.user.userId, this.userBudget-this.amount.value).subscribe(res=>{
+        console.log(res)
+      })*/
+      this.coinService.buyCoin(this.data.user.userId, this.data.coin.coinId, +this.amount.value).subscribe(res=>{
+        console.log(res)
+      })
+      
     }
-    
-    this.dialogRef.close(1)
+    this.dialogRef.close(this.coinService.getAllCoins())
   }
   onSell(){
     if(this.data.user.userId && this.data.coin.coinId){
       this.coinService.buyCoin(this.data.user.userId, this.data.coin.coinId, -this.amount.value).subscribe(res=>
         console.log(res))
     }
-    
-    this.dialogRef.close(-1)
+    this.dialogRef.close(this.coinService.getAllCoins())
     
   }
 

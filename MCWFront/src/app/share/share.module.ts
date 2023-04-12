@@ -4,13 +4,15 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import { ToNumberPipe } from './pipe/to-number.pipe';
 
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ToNumberPipe
   ],
   imports: [
     CommonModule,
@@ -18,7 +20,9 @@ import {MatIconModule} from '@angular/material/icon';
     MatIconModule 
   ],
   exports:[
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent,
+    ToNumberPipe
   ]
 })
 export class ShareModule { }

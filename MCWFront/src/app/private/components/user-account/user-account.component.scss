@@ -19,18 +19,23 @@
     width: 30%;
  
 }
-.form{
-    position: relative;
+.row{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-self: center;
-    width: 100%;
+    flex-direction: row;
+    margin:0
+}
+.row-button{
+    padding-top:20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin:0
+}
+.title{
+    font-family: Megrim;
+    padding-right: 20px;
 }
 .header-title{
     color:red;
-    font-weight: 300;
-}
-.bottom-button{
-    margin-top: 20px;
+    font-weight: 300    ;
 }

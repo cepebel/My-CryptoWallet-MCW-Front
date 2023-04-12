@@ -15,11 +15,12 @@ export class CoinsTableComponent implements OnInit {
   coins: Icoin[] = []
   displayedColumns: string[] = ['name', 'symbol', 'value', 'amount', 'actions']
   sessionUser: Iuser = {}
+  sessionUserCoins: Icoin[] = []
 
   constructor(
     private coinService: CoinService,
     private dialog: MatDialog,
-    private authService: AuthService
+    private authService: AuthService,
     ) { }
 
   ngOnInit(): void {
@@ -27,14 +28,42 @@ export class CoinsTableComponent implements OnInit {
       this.coins = res
     })
     this.sessionUser = this.authService.getUser()
+    this.getUserCoins()
   }
 
   openDialog(operation: number, coin: Icoin){
     this.dialog.open(ActionMessgComponent, {data:{operation:operation, coin:coin, user:this.sessionUser}})
     .afterClosed().subscribe(res=>{
+      //this.refresh()
+      this.coins = res
+      this.getUserCoins()
       console.log(res)
-      
     })
   }
+
+  getUserCoins(){
+    this.coinService.getUserCoins(this.sessionUser.userId||'').subscribe(res=>{
+      console.log('User Coins: '+res)
+      this.sessionUserCoins = res
+    })
+  }
+
+  showSellButton(coinId: string) : boolean {
+    if(this.sessionUserCoins==null){
+      return true
+    }
+    else{
+    return this.sessionUserCoins.filter(coin => coin.coinId == coinId)?.length == 0
+    }
+  }
+
+  refresh(){
+    this.getUserCoins()
+    /*this.coinService.getAllCoins().subscribe(res=>{
+      this.coins = res
+    })*/
+  }
+
+
 
 }

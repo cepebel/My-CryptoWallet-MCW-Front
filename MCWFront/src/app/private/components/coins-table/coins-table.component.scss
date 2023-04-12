@@ -11,7 +11,7 @@
     width: 40px;
   }
 .mat-header-row{
-  background-color: red;
+  background-color: black;
   
 }
 .table-title{
@@ -19,6 +19,12 @@
   font-family: Megrim;
   font-size: large;
 }
-.button{
+.button-buy{
   margin: 10px;
+  background-color: red;
+  color:white
+}
+.scroll{
+  height: 700px;
+  overflow: auto;
 }

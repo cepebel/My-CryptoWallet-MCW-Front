@@ -87,6 +87,9 @@ export class ActionMessgComponent implements OnInit {
   }
   onSell(){
     if(this.data.user.userId && this.data.coin.coinId){
+      if(this.amount.value<0){
+        this.dialog.open(ActionWarningComponent, {data: 'smarty'})
+      }
       this.coinService.buyCoin(this.data.user.userId, this.data.coin.coinId, -this.amount.value).subscribe(res=>{
         console.log(res)
         if(res=='impossible'){

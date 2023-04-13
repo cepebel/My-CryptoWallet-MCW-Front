@@ -3,7 +3,7 @@
     <div class="center-square">
         <div class="form">
             <h3 class="header-title">INICIAR SESIÓN</h3>
-            <form #logInForm = "ngForm" (ngSubmit)="logIn(logInForm)" >
+            <form #logInForm = "ngForm" (ngSubmit)="logInForm.form.valid && logIn(logInForm)" >
                 <mat-form-field appearance="outline" class="form">
                     <mat-label>Email:</mat-label>
                     <input matInput placeholder="Correo electrónico..." ngModel required #email = 'ngModel' name="email">
@@ -12,13 +12,18 @@
                     <mat-label>Contraseña:</mat-label>
                     <input matInput type="password" placeholder="Contraseña..." required ngModel #password="ngModel" name="password">
                 </mat-form-field>
+                <div class="alert" role="alert" *ngIf="password.errors && logInForm.submitted">
+                    <div *ngIf="password.errors.required">Introduzca la contraseña</div>
+                </div>
+                <div class="alert" role="alert" *ngIf="email.errors && logInForm.submitted">
+                    <div *ngIf="email.errors.required">Introduzca su correo</div>
+                </div>
                 <button mat-raised-button class="button" color="warn">Iniciar Sesion</button>
             </form>
             <div class="bottom-button">
                 <button mat-button (click)="toWelcome()">Atrás</button>
                 <button mat-button (click)="toRegister()">Registarme</button>
             </div>
-            
         </div>
     </div>
 </div>

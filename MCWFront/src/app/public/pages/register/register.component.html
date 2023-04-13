@@ -3,7 +3,7 @@
     <div class="center-square">
         <div class="form">
             <h3 class="header-title">INTRODUCE TUS DATOS:</h3>
-            <form #registerForm = "ngForm" (ngSubmit)="register(registerForm)" >
+            <form #f="ngForm" novalidate (ngSubmit)="f.form.valid && register(f)" >
                 <mat-form-field appearance="outline" class="form">
                     <mat-label>Nombre de Usuario:</mat-label>
                     <input matInput placeholder="Nombre de usuario..." ngModel required #username = 'ngModel' name="username">
@@ -18,12 +18,25 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="form">
                     <mat-label>Email:</mat-label>
-                    <input matInput placeholder="Correo electrónico..." ngModel required #email = 'ngModel' name="email">
+                    <input matInput placeholder="Correo electrónico..." ngModel required #email = 'ngModel' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="email">
                 </mat-form-field>
                 <mat-form-field  appearance="outline" class="form">
                     <mat-label>Contraseña:</mat-label>
-                    <input matInput type="password" placeholder="Contraseña..." required ngModel #password="ngModel" name="password">
+                    <input matInput  type="password" placeholder="Contraseña..." required minlength="8" ngModel #password="ngModel" name="password">
                 </mat-form-field>
+                <div class="alert" role="alert" *ngIf="username.errors && f.submitted">
+                    <div *ngIf="username.errors.required">Se requiere nombre de usuario</div>
+                </div>
+                <div class="alert" role="alert" *ngIf="email.errors && f.submitted">
+                    <div *ngIf="email.errors.required">Se requiere correo electrónico</div>
+                    <div *ngIf="email.errors.pattern">Email no válido</div>
+                </div>
+                <div class="alert" role="alert" *ngIf="password.errors && f.submitted">
+                    <div *ngIf="password.errors.required">Se requiere contraseña</div>
+                    <div *ngIf="password.errors.minlength">
+                        La contraseña debe tener al menos 8 caracteres
+                    </div>
+                </div>
                 <button mat-raised-button class="button" color="warn">Registrarme</button>
             </form>
             <div class="bottom-button">
@@ -33,4 +46,5 @@
         </div>
     </div>
 </div>
+
 <app-footer></app-footer>

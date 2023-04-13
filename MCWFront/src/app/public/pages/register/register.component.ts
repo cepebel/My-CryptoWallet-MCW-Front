@@ -44,10 +44,14 @@ export class RegisterComponent implements OnInit {
     this.authService.register(this.user).subscribe(
       res=>{
         if(res!=-1){
-          this.success=true
+          this.success= true
+          this.dialog.open(RegisterMessgComponent,{data: this.success})
           this.router.navigate(['/public/welcome'])
+        }else{
+          this.success=false
+          this.dialog.open(RegisterMessgComponent, {data:this.success})
         }
-        this.dialog.open(RegisterMessgComponent,{data: this.success})
+        
         console.log(res)
         
       }

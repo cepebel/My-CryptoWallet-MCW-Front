@@ -1,9 +1,10 @@
-<div *ngIf="data">
-    <h1 class="message">¡Hola!</h1>
+<div *ngIf="data" class="center">
+    <h1 class="message">¡HOLA!</h1>
     <p>Ya puedes iniciar sesión en nuestra página</p>
 </div>
-<div *ngIf="!data">
-    <h1 class="message">Ups...</h1>
-    <p>Por favor, rellene los campos que son obligatorios</p>
+<div *ngIf="!data" class="center">
+    <h1 class="message">¡Ups!</h1>
+    <p>Parece que el usuario ya está registrado...</p>
+    <p>Pruebe otro nombre de usuario o inicie sesión</p>
 </div>
 

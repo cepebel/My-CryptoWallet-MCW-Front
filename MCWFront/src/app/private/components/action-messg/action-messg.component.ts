@@ -108,7 +108,7 @@ export class ActionMessgComponent implements OnInit {
                 console.log(res)
                 this.data.user.budget = this.userBudget
                 this.authService.saveSession(this.data.user)
-                this.dialogRef.close({coins: this.coinService.getAllCoins(), newBudget: Number(this.userBudget)-Number(this.amount.value*this.coinValue), update: this.update})
+                this.dialogRef.close({coins: this.coinService.getAllCoins(), newBudget: Number(this.userBudget)+Number(this.amount.value*this.coinValue), update: this.update})
               })
             }
         }

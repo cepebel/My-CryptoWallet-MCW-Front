@@ -24,8 +24,14 @@ export class CoinService {
     console.log('A por mis monedas!')
     return this.http.get<Icoin[]>(COIN_API+'get/coins/user/'+userId)
   }
+  getUserJoins(userId: string):Observable<Ijoin[]>{
+    console.log('A por mis monedas!')
+    return this.http.get<Ijoin[]>(COIN_API+'get/join/user/'+userId)
+  }
   getJoinById(userId: string, coinId: string): Observable<Ijoin>{
     return this.http.get<Ijoin>(COIN_API+'get/join/'+userId+coinId)
   }
-  
+  getCoinById(coinId: string): Observable<Icoin>{
+    return this.http.get<Icoin>(COIN_API+'get/'+coinId)
+  }
 }

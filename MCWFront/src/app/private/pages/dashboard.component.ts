@@ -25,6 +25,9 @@ export class DashboardComponent implements OnInit {
       this.sessionUser = this.authService.getUser()
       console.log(this.sessionUser)
     }
+    else{
+      this.router.navigate(['public/welcome'])
+    }
   }
 
 }

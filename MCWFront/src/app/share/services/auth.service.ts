@@ -12,7 +12,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  logIn(mail:string, password:string): Observable<Iuser>{
+  logIn(mail:string, password:string): Observable<Iuser |string>{
     console.log('Dentro del authService')
     //return this.http.post<any>(AUTH_API+'login',{mail,password})
     return this.http.post<Iuser>(AUTH_API+'login',{email:mail, password:password})

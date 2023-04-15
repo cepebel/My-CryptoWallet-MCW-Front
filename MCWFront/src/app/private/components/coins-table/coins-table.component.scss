@@ -24,7 +24,44 @@
   background-color: red;
   color:white
 }
+.button-buy:hover{
+  background-color: rgb(192, 0, 0);
+  color:white
+}
+.button{
+  margin: 10px;
+  background-color: rgb(253, 253, 253);
+  color:rgb(1, 1, 1)
+}
+.button:hover{
+  background-color: #f5f5f5;
+  color:rgb(1, 1, 1)
+}
 .scroll{
   height: 700px;
   overflow: auto;
+}
+.button-flex{
+  display: flex;
+  flex-direction: row;
+}
+.header-div{
+  display: flex;
+  flex-direction: row-reverse;
+}
+.filter-name{
+  margin-right: 30px;
+}
+.table-selector{
+  margin-right: 20px;
+}
+
+@media (max-width: 1057px) {
+ 
+  .button-flex{
+    flex-direction: column;
+  }
+  .header-div{
+    flex-direction: column;
+  }
 }

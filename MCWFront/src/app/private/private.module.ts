@@ -14,6 +14,11 @@ import { MatInputModule } from '@angular/material/input';
 import { UserAccountComponent } from './components/user-account/user-account.component';
 import { ActionWarningComponent } from './components/action-warning/action-warning.component';
 import { ActionMoneyComponent } from './components/action-money/action-money.component';
+import { FormsModule } from '@angular/forms';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+
+
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -31,7 +36,10 @@ import { ActionMoneyComponent } from './components/action-money/action-money.com
     MatButtonModule,
     MatDialogModule,
     ReactiveFormsModule,
-    MatInputModule 
+    MatInputModule ,
+    FormsModule,
+    MatIconModule,
+    MatButtonToggleModule
   ]
 })
 export class PrivateModule { }

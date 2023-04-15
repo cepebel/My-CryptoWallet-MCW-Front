@@ -5,6 +5,8 @@ import { FooterComponent } from './footer/footer.component';
 import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { ToNumberPipe } from './pipe/to-number.pipe';
+import { FilterNamePipe } from './pipe/filter-name.pipe';
+import { ToEurosPipe } from './pipe/to-euros.pipe';
 
 
 
@@ -12,7 +14,9 @@ import { ToNumberPipe } from './pipe/to-number.pipe';
   declarations: [
     HeaderComponent,
     FooterComponent,
-    ToNumberPipe
+    ToNumberPipe,
+    FilterNamePipe,
+    ToEurosPipe
   ],
   imports: [
     CommonModule,
@@ -22,7 +26,8 @@ import { ToNumberPipe } from './pipe/to-number.pipe';
   exports:[
     HeaderComponent,
     FooterComponent,
-    ToNumberPipe
+    ToNumberPipe,
+    FilterNamePipe
   ]
 })
 export class ShareModule { }

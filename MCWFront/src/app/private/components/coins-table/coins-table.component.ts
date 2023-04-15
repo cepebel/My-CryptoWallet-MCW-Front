@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Icoin } from 'src/app/share/models/coin.model';
+import { Icoin, Ijoin } from 'src/app/share/models/coin.model';
 import { Iuser } from 'src/app/share/models/user.model';
 import { CoinService } from 'src/app/share/services/coin.service';
 import { MatDialog} from '@angular/material/dialog';
 import { ActionMessgComponent } from '../action-messg/action-messg.component';
 import { AuthService } from 'src/app/share/services/auth.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-coins-table',
@@ -14,8 +15,12 @@ import { AuthService } from 'src/app/share/services/auth.service';
 export class CoinsTableComponent implements OnInit {
   coins: Icoin[] = []
   displayedColumns: string[] = ['name', 'symbol', 'value', 'amount', 'actions']
+  displayedColumsMyCoins: string[] = ["name", 'symbol', 'value', 'amount']
   sessionUser: Iuser = {}
   sessionUserCoins: Icoin[] = []
+  filterSelection: string = ''
+  formCoinControl= new FormControl()
+  userJoins: Ijoin[] = []
 
   constructor(
     private coinService: CoinService,
@@ -29,6 +34,8 @@ export class CoinsTableComponent implements OnInit {
     })
     this.sessionUser = this.authService.getUser()
     this.getUserCoins()
+    this.getUserJoins()
+    this.formCoinControl.setValue('coins')
   }
 
   openDialog(operation: number, coin: Icoin){
@@ -47,13 +54,19 @@ export class CoinsTableComponent implements OnInit {
         this.sessionUser = this.authService.getUser()
       }
     })
-    //this.sessionUser
+
   }
 
   getUserCoins(){
     this.coinService.getUserCoins(this.sessionUser.userId||'').subscribe(res=>{
       console.log('User Coins: '+res)
       this.sessionUserCoins = res
+    })
+  }
+
+  getUserJoins(){
+    this.coinService.getUserJoins(this.sessionUser.userId||'').subscribe(res=>{
+      this.userJoins = res
     })
   }
 
@@ -73,6 +86,11 @@ export class CoinsTableComponent implements OnInit {
     })*/
   }
 
+  removeColumn() {
+    if (this.displayedColumns.length) {
+      delete this.displayedColumns[3]
+    }
+  }
 
 
 }

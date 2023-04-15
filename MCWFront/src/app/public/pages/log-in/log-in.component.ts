@@ -1,7 +1,11 @@
+import { Iuser } from './../../../share/models/user.model';
 import { Component, OnInit, Injectable } from '@angular/core';
 import  {NgForm} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/share/services/auth.service';
+import {MatDialog} from '@angular/material/dialog';
+import { LoginMessgComponent } from '../../components/login-messg/login-messg.component';
+
 
 
 @Component({
@@ -16,7 +20,8 @@ export class LogInComponent implements OnInit {
   
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    public matDialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -31,9 +36,21 @@ export class LogInComponent implements OnInit {
     console.log(this.password)
     this.authService.logIn(this.email, this.password).subscribe(
     res=>{
-      console.log(res)
-      this.authService.saveSession(res)
-      this.router.navigate(['/private/dashboard'])
+      if(res=='no-match'){
+        this.matDialog.open(LoginMessgComponent, {data:'no-match'})
+        console.log('Contraseña erronea')
+      }
+      else if(res=='no-data-base'){
+        this.matDialog.open(LoginMessgComponent, {data:'no-data-base'})
+        console.log('El usuario no se encuentra registrado en nuestra aplicación')
+      }
+      else{
+        if (typeof res !== 'string') {
+        console.log(res)
+        this.authService.saveSession(res)
+        this.router.navigate(['/private/dashboard'])
+        }
+      }
     },
     err=>{
       console.log('Holi')

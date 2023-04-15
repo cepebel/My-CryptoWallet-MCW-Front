@@ -1,30 +1,85 @@
-<div class="scroll">
-<mat-table [dataSource]="coins" class="mat-elevation-z8">
-    <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef class="table-title"> Nombre</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="symbol">
-        <mat-header-cell *matHeaderCellDef class="table-title"> Symbol</mat-header-cell>
-        <mat-cell *matCellDef="let element"><img [src]="element.symbol" class="img"></mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="value">
-        <mat-header-cell *matHeaderCellDef class="table-title"> Valor (€/ud)</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.value}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="amount">
-        <mat-header-cell *matHeaderCellDef class="table-title"> Cantidad total (ud)</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.amount}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef class="table-title">Mi saldo: {{sessionUser.budget | number: '1.1-2'}} €</mat-header-cell>
-        <mat-cell *matCellDef="let element">
-            <button mat-raised-button class="button-buy" (click)="openDialog(1, element)">Comprar</button>
-            <button mat-raised-button *ngIf="!showSellButton(element.coinId)" class="button" (click)="openDialog(-1, element)">Vender</button>
-        </mat-cell>
-    </ng-container>
 
-    <mat-header-row *matHeaderRowDef='displayedColumns; sticky: true'></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-</mat-table>
+<div class="header-div">
+    <div class="table-selector">
+        <mat-button-toggle-group #group="matButtonToggleGroup" [formControl]="formCoinControl">
+            <mat-button-toggle value="coins" aria-label="Show coins">
+                Cryptomonedas
+            </mat-button-toggle>
+            <mat-button-toggle value="myCoins" aria-label="Show my coins">
+                Mis cryptomonedas
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+    <div class="filter-name">
+        <mat-form-field class="left">
+            <mat-label>Buscar moneda</mat-label>
+            <input matInput type="text" [(ngModel)]="filterSelection">
+            <button *ngIf="filterSelection" matSuffix mat-icon-button aria-label="Clear" (click)="filterSelection=''">
+              <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
 </div>
+
+<div *ngIf="formCoinControl.value=='myCoins'">
+    <div class="scroll">
+        <mat-table [dataSource]="sessionUserCoins" class="mat-elevation-z8"> 
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef class="table-title"> Nombre</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="symbol">
+                <mat-header-cell *matHeaderCellDef class="table-title"> Symbol</mat-header-cell>
+                <mat-cell *matCellDef="let element"><img [src]="element.symbol" class="img"></mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="value">
+                <mat-header-cell *matHeaderCellDef class="table-title"> Valor (€/ud)</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.value}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="amount">
+                <mat-header-cell *matHeaderCellDef class="table-title"> Cantidad total (ud)</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.amount}}</mat-cell>
+            </ng-container> 
+            <mat-header-row *matHeaderRowDef='displayedColumsMyCoins; sticky: true'></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumsMyCoins;"></mat-row>
+        </mat-table>
+        </div>
+</div>
+<div *ngIf="formCoinControl.value=='coins'">
+    <div class="scroll">
+        <mat-table [dataSource]="coins | filterName: filterSelection" class="mat-elevation-z8"> 
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef class="table-title"> Nombre</mat-header-cell>
+                
+                <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="symbol">
+                <mat-header-cell *matHeaderCellDef class="table-title"> Symbol</mat-header-cell>
+                <mat-cell *matCellDef="let element"><img [src]="element.symbol" class="img"></mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="value">
+                <mat-header-cell *matHeaderCellDef class="table-title"> Valor (€/ud)</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.value}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="amount">
+                <mat-header-cell *matHeaderCellDef class="table-title"> Cantidad total (ud)</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.amount}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef class="table-title">Mi saldo: {{sessionUser.budget | number: '1.1-2'}} €</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <div class="button-flex">
+                        <button mat-raised-button class="button-buy" (click)="openDialog(1, element)">Comprar</button>
+                        <button mat-raised-button *ngIf="!showSellButton(element.coinId)" class="button" (click)="openDialog(-1, element)">Vender</button>
+                    </div>
+                </mat-cell>
+            </ng-container>
+        
+            <mat-header-row *matHeaderRowDef='displayedColumns; sticky: true'></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        </div>
+
+</div>
+
+

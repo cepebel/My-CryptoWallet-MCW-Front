@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './pages/register/register.component';
 import { RegisterMessgComponent } from './components/register-messg/register-messg.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { LoginMessgComponent } from './components/login-messg/login-messg.component';
 
 
 
@@ -23,6 +24,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     LogInComponent,
     RegisterComponent,
     RegisterMessgComponent,
+    LoginMessgComponent,
   ],
   imports: [
     CommonModule,
